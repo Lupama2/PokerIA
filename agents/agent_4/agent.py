@@ -1,6 +1,6 @@
 
 """
-This script runs 150 iterations of CFR+ in a Leduc poker game with actions {FOLD, CHECK/CALL, POT-SIZE-BET/RAISE}.
+This script runs 50 iterations of CFR+ in a Leduc poker game with actions {FOLD, CHECK/CALL, POT-SIZE-BET/RAISE}.
 
 
 It will store logs and tree files on "logs" folder
@@ -12,19 +12,24 @@ from PokerRL.cfr.CFRPlus import CFRPlus
 from PokerRL.game import bet_sets
 from PokerRL.game.games import DiscretizedNLLeduc
 from PokerRL.rl.base_cls.workers.ChiefBase import ChiefBase
+import ray
+
+
 
 if __name__ == '__main__':
     from PokerRL._.CrayonWrapper import CrayonWrapper
 
-    n_iterations = 150
-    name = "CFRplus_agent_1"
+    ray.init()
+
+    n_iterations = 50
+    name = "CFRplus_agent_4"
 
     # Passing None for t_prof will is enough for ChiefBase. We only use it to log; This CFR impl is not distributed.
     chief = ChiefBase(t_prof=None)
     crayon = CrayonWrapper(name=name,
                            path_log_storage="logs/",
                            chief_handle=chief,
-                           runs_distributed=False,
+                           runs_distributed=True,
                            runs_cluster=False)
     cfr = CFRPlus(name=name,
                   game_cls=DiscretizedNLLeduc,
