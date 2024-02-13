@@ -1,3 +1,8 @@
+# Ignore JSON and ZIP files
+*.json
+*.zip
+
+
 
 # Created by https://www.gitignore.io/api/linux,python,windows,pycharm,pycharm+all,pycharm+iml
 
